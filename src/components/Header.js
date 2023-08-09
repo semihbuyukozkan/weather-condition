@@ -1,25 +1,33 @@
-import {useState} from "react";
-import {Dropdown} from 'react-bootstrap';
+
+import { Dropdown } from "react-bootstrap";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
+
 
 function Header(props) {
-    const[selectedCity, setSelectedCity] = useState('');
+  const handleCitySelect = (city) => {
+    props.setSelectedCity(city);
+  };
 
-    const handleCitySelect = (city) => {
-        setSelectedCity(city);
-        
-    };
-
-    return(
-        <header className="text-center mt-5" >
-            <h1 className="display-4">Weather Condition App</h1>
-            <p className="lead">Choose a city to see weather</p>
-            <div>
-                <button className="btn btn-primary mr-2" onClick={() => handleCitySelect("Istanbul")}>İstanbul</button>
-                <button className="btn btn-primary mr-2" onClick={() => handleCitySelect("Ankara")}>Ankara</button>
-                <button className="btn btn-primary" onClick={() => handleCitySelect("Izmir")}>İzmir</button>
-            </div>
-        </header>
-    );
+  return (
+    <header className="text-center mt-5">
+      <h1 className="display-4">Weather Condition App</h1>
+      <p className="lead">Choose a city to see weather</p>
+      <div>
+        <Dropdown> 
+            <DropdownToggle variant="secondary" id="cityDropdown">
+                Şehir Seç
+            </DropdownToggle>
+            <DropdownMenu> 
+                <DropdownItem onClick={() => handleCitySelect("Istanbul")}>İstanbul</DropdownItem>
+                <DropdownItem onClick={() => handleCitySelect("Ankara")}>Ankara</DropdownItem>
+                <DropdownItem onClick={() => handleCitySelect("Izmir")}>İzmir</DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+      </div>
+    </header>
+  );
 }
 
 export default Header;
