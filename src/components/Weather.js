@@ -1,54 +1,75 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Header from "./Header";
+import Background from "./Background";
+import { Container } from "react-bootstrap";
+import { fetchWeatherData } from "../services/WeatherService";
 
 function Weather(props) {
-  console.log("Weather component props:", props.city);
-
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setData] = useState(null);
 
   useEffect(() => {
-    if (props.city !== "") {
-      const API_KEY = "2eb65467b4520c4c9bb27b38674946ca";
-      const apiUrl =
-        "https://api.openweathermap.org/data/2.5/weather?q=" +
-        props.city +
-        "&appid=2eb65467b4520c4c9bb27b38674946ca";
+    getWeatherData(props.city);
+  }, []);
 
-      axios
-        .get(apiUrl)
-        .then((response) => {
-          setWeatherData(response.data);
-        })
-        .catch((error) => {
-          console.error("API error:", error);
-        });
-    } else {
-      setWeatherData(null);
-    }
-  }, [props.city]);
+  async function getWeatherData(city) {
+    const data = await fetchWeatherData(city);
+    console.log(data);
+    setData(data);
+  }
+  // const [image, setImage] = useState("");
 
-  const kelvinToCelcius = (kelvin) => kelvin - 273.15;
+  // function getBackgroundImage(weatherData) {
+  //   console.log();
+  //   const condition = weatherData?.weather[0]?.main;
+  //   if (condition === "Clear") {
+  //     setImage("../images/clear.jpg");
+  //   } else if (condition === "Clouds") {
+  //     setImage("../images/clouds.jpg");
+  //   } else if (condition === "Fog") {
+  //     setImage("../images/fog.jpg");
+  //   } else if (condition === "Rain") {
+  //     setImage("../images/rain.jpg");
+  //   } else if (condition === "Snow") {
+  //     setImage("../images/snow.jpg");
+  //   } else {
+  //     setImage("");
+  //   }
+  // }
+  // useEffect(
+  //   (weatherData) => {
+  //     getBackgroundImage();
+  //   },
+  //   [weatherData]
+  // );
+
+  // const backgroundStyle = {
+  //   backgroundImage: `url(${getBackgroundImage})`,
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center",
+  //   minHeight: "100vh",
+  // };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          {weatherData && (
-            <div>
-              <h2>
-                {props.city}: {weatherData.weather[0].main}
-              </h2>
-              <p>
-                Temprature: {kelvinToCelcius(weatherData.main.temp).toFixed(2)}{" "}
-                °C
-              </p>
-              <p>
-                Felt air temprature:{" "}
-                {kelvinToCelcius(weatherData.main.feels_like).toFixed(2)} °C
-              </p>
-            </div>
-          )}
+    <div
+    // style={{
+    //   backgroundImage: `url(${getBackgroundImage})`,
+    //   backgroundSize: "cover",
+    //   backgroundPosition: "center",
+    //   minHeight: "100vh",
+    //}}
+    >
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            {weatherData && (
+              <div>
+                <h2>
+                  {props.city}: {weatherData.weather[0].main}
+                </h2>
+                <p>Temprature: °C</p>
+                <p>Felt air temprature: °C</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

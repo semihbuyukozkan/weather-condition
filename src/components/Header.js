@@ -17,12 +17,15 @@ function Header(props) {
       <div>
         <Dropdown> 
             <DropdownToggle variant="secondary" id="cityDropdown">
-                Şehir Seç
+                Choose City
             </DropdownToggle>
             <DropdownMenu> 
                 <DropdownItem onClick={() => handleCitySelect("Istanbul")}>İstanbul</DropdownItem>
                 <DropdownItem onClick={() => handleCitySelect("Ankara")}>Ankara</DropdownItem>
                 <DropdownItem onClick={() => handleCitySelect("Izmir")}>İzmir</DropdownItem>
+                <DropdownItem onClick={() => handleCitySelect("Denizli")}>Denizli</DropdownItem>
+                <DropdownItem onClick={() => handleCitySelect("Konya")}>Konya</DropdownItem>
+                <DropdownItem onClick={() => handleCitySelect("Hakkari")}>Hakkari</DropdownItem>
             </DropdownMenu>
         </Dropdown>
       </div>

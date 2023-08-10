@@ -1,7 +1,13 @@
 
 body {
-    background: linear-gradient(to bottom, #f5f5f5, #e0e0e0); /* Arka plan rengi olarak yumuşak geçişler */
+    
     margin: 0;
     padding: 0;
   }
   
+  .background-img {
+    background-image: url('./images/clouds.jpg');
+    background-size: "cover";
+    background-position: "center";
+    min-height: "100vh";
+  }
