@@ -1,75 +1,63 @@
 import { useState, useEffect } from "react";
-import Background from "./Background";
-import { Container } from "react-bootstrap";
+
 import { fetchWeatherData } from "../services/WeatherService";
 
 function Weather(props) {
-  const [weatherData, setData] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [backgroundImage, setBackgroundImage] = useState("");
 
   useEffect(() => {
-    getWeatherData(props.city);
-  }, []);
+    async function fetchData() {
+      const data = await fetchWeatherData(props.city);
+      setWeatherData(data);
+      getBackgroundImage(data);
+    }
+    fetchData();
+  }, [props.city]);
 
-  async function getWeatherData(city) {
-    const data = await fetchWeatherData(city);
-    console.log(data);
-    setData(data);
+  function getBackgroundImage(data) {
+    let condition = "";
+    if (data && data.weather && data.weather[0] && data.weather[0].main) {
+      condition = data.weather[0].main;
+    }
+
+    if (condition === "Clear") {
+      setBackgroundImage(require("../images/clear.jpg")); //require: to import images into this component
+    } else if (condition === "Clouds") {
+      setBackgroundImage(require("../images/clouds.jpg"));
+    } else if (condition === "Fog") {
+      setBackgroundImage(require("../images/fog.jpg"));
+    } else if (condition === "Rain") {
+      setBackgroundImage(require("../images/rain.jpg"));
+    } else if (condition === "Snow") {
+      setBackgroundImage(require("../images/snow.jpg"));
+    } else {
+      setBackgroundImage("");
+    }
   }
-  // const [image, setImage] = useState("");
 
-  // function getBackgroundImage(weatherData) {
-  //   console.log();
-  //   const condition = weatherData?.weather[0]?.main;
-  //   if (condition === "Clear") {
-  //     setImage("../images/clear.jpg");
-  //   } else if (condition === "Clouds") {
-  //     setImage("../images/clouds.jpg");
-  //   } else if (condition === "Fog") {
-  //     setImage("../images/fog.jpg");
-  //   } else if (condition === "Rain") {
-  //     setImage("../images/rain.jpg");
-  //   } else if (condition === "Snow") {
-  //     setImage("../images/snow.jpg");
-  //   } else {
-  //     setImage("");
-  //   }
-  // }
-  // useEffect(
-  //   (weatherData) => {
-  //     getBackgroundImage();
-  //   },
-  //   [weatherData]
-  // );
-
-  // const backgroundStyle = {
-  //   backgroundImage: `url(${getBackgroundImage})`,
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "center",
-  //   minHeight: "100vh",
-  // };
+  console.log(backgroundImage);
+  const kelvinToCelsius = (kelvin) => kelvin - 273.15;
 
   return (
-    <div
-    // style={{
-    //   backgroundImage: `url(${getBackgroundImage})`,
-    //   backgroundSize: "cover",
-    //   backgroundPosition: "center",
-    //   minHeight: "100vh",
-    //}}
-    >
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-6">
-            {weatherData && (
-              <div>
-                <h2>
-                  {props.city}: {weatherData.weather[0].main}
-                </h2>
-                <p>Temprature: °C</p>
-                <p>Felt air temprature: °C</p>
-              </div>
-            )}
-          </div>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          {weatherData && (
+            <div>
+              <h2>
+                {props.city}: {weatherData.weather[0].main}
+              </h2>
+              <p>
+                Temperature: {kelvinToCelsius(weatherData.main.temp).toFixed(2)}{" "}
+                °C
+              </p>
+              <p>
+                Felt air temperature:{" "}
+                {kelvinToCelsius(weatherData.main.feels_like).toFixed(2)}°C
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

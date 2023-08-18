@@ -1,28 +1,40 @@
-import React from 'react';
+import React, { useState } from "react";
+import Weather from "./Weather";
 
 function Background(props) {
-  const backgroundImageMap = {
-    'Clear': '../images/clear.jpg',
-    'Clouds': '../images/clouds.jpg',
-    'Fog': '../images/fog.jpg',
-    'Rain': '../images/rain.jpg',
-    'Snow': '../images/snow.jpg',
+  const [backgroundImage, setBackgroundImage] = useState("");
+
+  const backgroundStyle = {
+    backgroundImage: `url('${props.backgroundImage}')`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+    margin: 0,
+    padding: 0,
   };
 
-  const backgroundImage = backgroundImageMap[props.weatherCondition] || '';
-  
-  return (
-    <div
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-      }}
-    >
-      {props.children}
-    </div>
-  );
+  function getBackgroundImage(data) {
+    let condition = "";
+    if (data && data.weather && data.weather[0] && data.weather[0].main) {
+      condition = data.weather[0].main;
+    }
+
+    if (condition === "Clear") {
+      setBackgroundImage(require("../images/clear.jpg")); //require: to import images into this component
+    } else if (condition === "Clouds") {
+      setBackgroundImage(require("../images/clouds.jpg"));
+    } else if (condition === "Fog") {
+      setBackgroundImage(require("../images/fog.jpg"));
+    } else if (condition === "Rain") {
+      setBackgroundImage(require("../images/rain.jpg"));
+    } else if (condition === "Snow") {
+      setBackgroundImage(require("../images/snow.jpg"));
+    } else {
+      setBackgroundImage("");
+    }
+  }
+
+  return <div style={backgroundStyle}>{props.children}</div>;
 }
 
 export default Background;

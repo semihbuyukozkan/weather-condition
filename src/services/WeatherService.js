@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 
 export async function fetchWeatherData(props) {
   return new Promise((resolve, reject) => {
@@ -15,6 +14,4 @@ export async function fetchWeatherData(props) {
       }
     });
   });
-
-  // const kelvinToCelcius = (kelvin) => kelvin - 273.15;
 }
