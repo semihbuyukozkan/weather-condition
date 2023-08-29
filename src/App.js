@@ -2,7 +2,6 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Weather from "./components/Weather";
 import "./style.css";
-import Background from "./components/Background";
 
 function App() {
   const [selectedCity, setSelectedCity] = useState("Istanbul");
@@ -21,9 +20,14 @@ function App() {
   };
 
   return (
-    <div className="App" style={backgroundStyle}>
-      <Header className="App-Header" setSelectedCity={setSelectedCity}></Header>
-      <Weather city={selectedCity} sendBackgroundImage={handleImageData} />
+    <div className="mt-0">
+      <div className="App" style={backgroundStyle}>
+        <Header
+          className="App-Header"
+          setSelectedCity={setSelectedCity}
+        ></Header>
+        <Weather city={selectedCity} sendBackgroundImage={handleImageData} />
+      </div>
     </div>
   );
 }

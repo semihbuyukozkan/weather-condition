@@ -9,7 +9,7 @@ function Header(props) {
   };
 
   return (
-    <header className="text-center mt-5">
+    <header className="text-center">
       <h1 className="display-4">Weather Condition App</h1>
       <p className="lead">Choose a city to see weather</p>
       <div>
