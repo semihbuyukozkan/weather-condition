@@ -4,7 +4,11 @@ import { fetchWeatherData } from "../services/WeatherService";
 
 function Weather(props) {
   const [weatherData, setWeatherData] = useState(null);
-  const [backgroundImage, setBackgroundImage] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState();
+
+  useEffect(() => {
+    props.sendBackgroundImage(backgroundImage); // Parent'a backgroundImage değerini iletiyoruz
+  }, [backgroundImage]);
 
   useEffect(() => {
     async function fetchData() {
@@ -35,8 +39,6 @@ function Weather(props) {
       setBackgroundImage("");
     }
   }
-
-  console.log(backgroundImage);
   const kelvinToCelsius = (kelvin) => kelvin - 273.15;
 
   return (

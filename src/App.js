@@ -7,17 +7,24 @@ import Background from "./components/Background";
 function App() {
   const [selectedCity, setSelectedCity] = useState("Istanbul");
   const [backgroundImage, setBackgroundImage] = useState("");
+  const handleImageData = (data) => {
+    setBackgroundImage(data);
+  };
+
+  const backgroundStyle = {
+    backgroundImage: `url('${backgroundImage}')`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+    margin: 0,
+    padding: 0,
+  };
 
   return (
-    <Background backgroundImage={backgroundImage}>
-      <div className="App">
-        <Header
-          className="App-Header"
-          setSelectedCity={setSelectedCity}
-        ></Header>
-        <Weather city={selectedCity} setBackgroundImage={setBackgroundImage} />
-      </div>
-    </Background>
+    <div className="App" style={backgroundStyle}>
+      <Header className="App-Header" setSelectedCity={setSelectedCity}></Header>
+      <Weather city={selectedCity} sendBackgroundImage={handleImageData} />
+    </div>
   );
 }
 
