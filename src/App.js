@@ -6,6 +6,7 @@ import "./style.css";
 function App() {
   const [selectedCity, setSelectedCity] = useState("Istanbul");
   const [backgroundImage, setBackgroundImage] = useState("");
+
   const handleImageData = (data) => {
     setBackgroundImage(data);
   };
@@ -17,6 +18,7 @@ function App() {
     minHeight: "100vh",
     margin: 0,
     padding: 0,
+    transition: "background-image 0.5s ease-in-out",
   };
 
   return (

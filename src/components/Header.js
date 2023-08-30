@@ -10,8 +10,8 @@ function Header(props) {
 
   return (
     <header className="text-center">
-      <h1 className="display-4">Weather Condition App</h1>
-      <p className="lead">Choose a city to see weather</p>
+      <h1 className="display-4 text-white">Weather Condition App</h1>
+      <p className="lead text-white">Choose a city to see weather</p>
       <div>
         <Dropdown>
           <DropdownToggle variant="secondary" id="cityDropdown">
