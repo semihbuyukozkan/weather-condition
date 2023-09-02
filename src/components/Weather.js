@@ -65,65 +65,91 @@ function Weather(props) {
 
   return (
     <>
-      <Container
-        className="d-flex justify-content-center align-items-center"
-        style={{
-          backgroundColor: "rgba(0,0,0,0.3)",
-          borderRadius: "15px",
-          width: "35%",
-          marginTop: "5vh",
-        }}
-      >
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-6">
-              {weatherData && (
-                <div>
-                  <br></br>
-                  <h2 className="custom-heading">
-                    {props.city}: {weatherData.weather[0].main}
-                  </h2>
-                  <p className="custom-text">
-                    Temperature:{" "}
-                    {kelvinToCelsius(weatherData.main.temp).toFixed(2)} °C
-                  </p>
-                  <p className="custom-text">
-                    Felt air temperature:{" "}
-                    {kelvinToCelsius(weatherData.main.feels_like).toFixed(2)}
-                    °C
-                  </p>
-                </div>
-              )}
+      <Container className="d-flex justify-content-start">
+        <Container
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            backgroundColor: "rgba(0,0,0,0.3)",
+            borderRadius: "15px",
+            width: "35%",
+            marginTop: "5vh",
+          }}
+        >
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-6">
+                {weatherData && (
+                  <div>
+                    <br></br>
+                    <h1 className="custom-heading">
+                      {props.city}: {weatherData.weather[0].main}
+                    </h1>
+                    <p className="custom-text">
+                      Temperature:{" "}
+                      {kelvinToCelsius(weatherData.main.temp).toFixed(2)} °C
+                    </p>
+                    <p className="custom-text">
+                      Felt air temperature:{" "}
+                      {kelvinToCelsius(weatherData.main.feels_like).toFixed(2)}
+                      °C
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
-      <Container
-        className="d-flex justify-content-center align-items-center"
-        style={{
-          backgroundColor: "rgba(0,0,0,0.3)",
-          borderRadius: "15px",
-          width: "35%",
-          marginTop: "5vh",
-        }}
-      >
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-6"></div>
-            <br></br>
-            <p className="custom-text">
-              <img
-                src={require("../icons/sunriseIcon.png")}
-                alt="Sunrise Icon"
-              />
-              Sunrise: {formattedSunrise}
-            </p>
-            <p className="custom-text">
-              <img src={require("../icons/sunsetIcon.png")} alt="Sunset Icon" />
-              Sunset: {formattedSunset}
-            </p>
+        </Container>
+        <Container
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            backgroundColor: "rgba(0,0,0,0.3)",
+            borderRadius: "15px",
+            width: "35%",
+            marginTop: "5vh",
+          }}
+        >
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-6"></div>
+              <h3 className="custom-text">Sunrise and Sunset Times:</h3>
+              <p className="custom-text">
+                <img
+                  src={require("../icons/sunriseIcon.png")}
+                  alt="Sunrise Icon"
+                />
+                Sunrise: {formattedSunrise}
+              </p>
+              <p className="custom-text">
+                <img
+                  src={require("../icons/sunsetIcon.png")}
+                  alt="Sunset Icon"
+                />
+                Sunset: {formattedSunset}
+              </p>
+            </div>
           </div>
-        </div>
+        </Container>
+        <Container
+          style={{
+            backgroundColor: "rgba(0,0,0,0.3)",
+            borderRadius: "15px",
+            width: "20%",
+            marginTop: "5vh",
+          }}
+        >
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-6"></div>
+              <br />
+              <br />
+              <h3 className="custom-text">Humidity:</h3>
+              <h4 className="custom-text">
+                <img src={require("../icons/humidityIcon.png")} />
+                {weatherData?.main?.humidity}%
+              </h4>
+            </div>
+          </div>
+        </Container>
       </Container>
     </>
   );
